@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Blog.Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/Blog.Web.styles.css" asp-append-version="true"/>
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col-1">
+                <div class="mt-2" style="height: 61px; width: 61px; background: gray">
+                </div>
+            </div>
+            <div class="col-11">
+                <h1>
+                    <a class="text-black text-decoration-none" href="/">Grant Byrne</a>
+                </h1>
+                <h2 class="small">Coder, Cyclist, Runner, Swimmer, and Rock Climber</h2>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-4 mt-4">
+            <h3>Resources</h3>
+            <ul class="p-0" style="list-style-type: none">
+                <li>
+                    <a class="text-decoration-none" href="/AboutMe">
+                        About Me
+                    </a>
+                </li>
+                <li>
+                    <a class="text-decoration-none" href="/Resume">Resume</a>
+                </li>
+                <li>
+                    <a class="text-decoration-none" href="https://github.com/GrantByrne">Github</a>
+                </li>
+                <li>
+                    <a class="text-decoration-none" href="https://www.twitter.com/Gr4ntByrne">Twitter</a>
+                </li>
+                <li>
+                    <a class="text-decoration-none" href="https://www.instagram.com/gr4ntbyrne">Instagram</a>
+                </li>
+                <li>
+                    <a class="text-decoration-none" href="https://www.youtube.com/@@Gr4ntByrne">Youtube</a>
+                </li>
+                <li>
+                    <a class="text-decoration-none" href="https://www.youtube.com/@@Gr4ntByrne">LinkedIn</a>
+                </li>
+            </ul>
+            <div class="text-muted small">
+                Copywrite Grant Byrne © @DateTime.Today.Year
+                <br/>
+                Developed in house with <a href="#">gBlog</a>
+            </div>
+        </div>
+        <div class="col-8 mt-4">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
