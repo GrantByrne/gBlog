@@ -420,3 +420,7 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+/.idea/.idea.Blog/.idea
+/Blog.Web/blog.db-wal
+/Blog.Web/blog.db-shm
+/Blog.Web/blog.db
