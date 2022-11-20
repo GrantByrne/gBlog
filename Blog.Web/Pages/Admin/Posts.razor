@@ -36,21 +36,54 @@
         </table>
     </div>
     <div class="card-footer">
-        <a class="btn btn-primary" href="#">Newer</a>
-        <a class="btn btn-primary float-end" href="#">Older</a>
+        @if (DisplayNewer)
+        {
+            <button class="btn btn-primary" @onclick="Newer">Newer</button>   
+        }
+        
+        @if (DisplayOlder)
+        {
+            <button class="btn btn-primary float-end" @onclick="Older">Older</button>
+        }
     </div>
 </div>
 
 @code {
 
     private List<Post> PostItems { get; set; } = new();
-    
+    private int Page { get; set; } = 1;
+    private int PageSize { get; set; } = 10;
+    private int TotalCount { get; set; } = 0;
+
     protected override void OnInitialized()
     {
-        PostItems = DbContext.Posts
-            .OrderByDescending(p => p.Created)
-            .Take(10)
-            .ToList();
+        Reload();
     }
 
+    private void Newer()
+    {
+        Page--;
+        Reload();
+    }
+
+    private void Older()
+    {
+        Page++;
+        Reload();
+    }
+
+    private void Reload()
+    {
+        TotalCount = DbContext.Posts.Count();
+        
+        PostItems = DbContext.Posts
+            .OrderByDescending(p => p.Created)
+            .Skip((Page-1)*PageSize)
+            .Take(PageSize)
+            .ToList();
+    }
+    
+    private bool DisplayNewer => Page > 1;
+    private bool DisplayOlder => Page < PageCount;
+    private int PageCount => (int)Math.Ceiling((double)TotalCount / PageSize);
 }
