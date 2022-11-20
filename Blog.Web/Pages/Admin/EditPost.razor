@@ -1,8 +1,7 @@
-@page "/admin/EditPost"
+@page "/admin/EditPost/{PostId:long}"
 @using Blog.Web.Pages.Shared
 @using Blog.Web.Database
 @using Blog.Web.Models
-@using Blazored.FluentValidation
 @layout AdminLayout
 
 <h3>Create a New Post</h3>
@@ -30,7 +29,7 @@
 
 @code {
 
-    private readonly Post _post = new()
+    private Post _post = new()
     {
         Created = DateTime.Now
     };
@@ -41,18 +40,34 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
 
+    [Inject]
+    public ILogger<EditPost> Logger { get; set; } = null!;
+    
+    [Parameter]
+    public long PostId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (PostId != 0)
+        {
+            var post = DbContext.Posts.First(p => p.Id == PostId);
+            _post = post;
+        }
+    }
+
     public void Save()
     {
         try
         {
-            DbContext.Posts.Add(_post);
+            
+            DbContext.Posts.Update(_post);
             DbContext.SaveChanges();
 
             NavigationManager.NavigateTo("/admin/posts");
         }
         catch (Exception ex)
         {
-    // Ignore
+            Logger.LogError(ex, "Failed to update post {PostId}", PostId);
         }
     }
 
