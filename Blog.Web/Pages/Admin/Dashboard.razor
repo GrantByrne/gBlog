@@ -1,9 +1,33 @@
 @page "/admin/Dashboard"
 @using Blog.Web.Pages.Shared
+@using Blog.Web.Database
 @layout AdminLayout
 
 <h3>Dashboard</h3>
 
+<div class="row">
+    <div class="col-5">
+        <div class="card">
+            <div class="card-header">
+                <h3>Stats</h3>
+            </div>
+            <div class="card-body">
+                <strong>Posts</strong> - @_postCount
+            </div>
+        </div>
+    </div>
+</div>
+
 @code {
+
+    private int _postCount;
+
+    [Inject]
+    public BlogDbContext DbContext { get; set; } = null!;
     
+    protected override async Task OnInitializedAsync()
+    {
+        _postCount = DbContext.Posts.Count();
+    }
+
 }
