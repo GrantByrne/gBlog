@@ -1,10 +1,17 @@
 using Blog.Web.Database;
+using Blog.Web.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+
 builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlite("Data Source=blog.db"));
+
+builder.Services.AddIdentity<User, IdentityRole>()  
+    .AddEntityFrameworkStores<BlogDbContext>();
+
 builder.Services.AddServerSideBlazor();
 
 var app = builder.Build();
