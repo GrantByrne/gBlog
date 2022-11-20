@@ -48,7 +48,7 @@
     protected override void OnInitialized()
     {
         PostItems = DbContext.Posts
-            .OrderBy(p => p.Created)
+            .OrderByDescending(p => p.Created)
             .Take(10)
             .ToList();
     }
