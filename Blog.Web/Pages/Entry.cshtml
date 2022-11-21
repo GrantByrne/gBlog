@@ -1,0 +1,17 @@
+@page "/entry/{id:int}"
+@model Blog.Web.Pages.Entry
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <span class="text-muted small">@Model.Post.Published.ToShortDateString()</span>
+    <h4 class="display-5">
+        <a class="text-black text-decoration-none" href="/entry/@Model.Post.Id">
+            @Model.Post.Title
+        </a>
+    </h4>
+    <div>
+        @Model.Post.Content
+    </div>
+</div>

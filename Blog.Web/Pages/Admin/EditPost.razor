@@ -1,7 +1,6 @@
 @page "/admin/EditPost/{PostId:long}"
 @using Blog.Web.Pages.Shared
-@using Blog.Web.Database
-@using Blog.Web.Models
+@using Blazored.FluentValidation
 @layout AdminLayout
 
 <h3>Create a New Post</h3>
@@ -16,7 +15,7 @@
     </div>
     <div class="form-group">
         <label for="publish-date-time">Publish Date Time</label>
-        <input type="datetime-local" class="form-control" id="publish-date-time" @bind="_post.Created"/>
+        <input type="datetime-local" class="form-control" id="publish-date-time" @bind="_post.Published"/>
     </div>
     <div class="form-group mt-3">
         <label for="post-body">Post Body</label>
@@ -26,49 +25,3 @@
         <button class="btn btn-primary float-end" type="submit">Save</button>
     </div>
 </EditForm>
-
-@code {
-
-    private Post _post = new()
-    {
-        Created = DateTime.Now
-    };
-
-    [Inject]
-    public BlogDbContext DbContext { get; set; } = null!;
-
-    [Inject]
-    public NavigationManager NavigationManager { get; set; } = null!;
-
-    [Inject]
-    public ILogger<EditPost> Logger { get; set; } = null!;
-    
-    [Parameter]
-    public long PostId { get; set; }
-
-    protected override void OnInitialized()
-    {
-        if (PostId != 0)
-        {
-            var post = DbContext.Posts.First(p => p.Id == PostId);
-            _post = post;
-        }
-    }
-
-    public void Save()
-    {
-        try
-        {
-            
-            DbContext.Posts.Update(_post);
-            DbContext.SaveChanges();
-
-            NavigationManager.NavigateTo("/admin/posts");
-        }
-        catch (Exception ex)
-        {
-            Logger.LogError(ex, "Failed to update post {PostId}", PostId);
-        }
-    }
-
-}

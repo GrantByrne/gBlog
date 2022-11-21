@@ -1,15 +1,20 @@
 ﻿using Blog.Web.Database;
 using Blog.Web.Models;
+using Blog.Web.Models.Posts;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Blog.Web.Pages;
 
-public class IndexModel : PageModel
+public class IndexModel : PageModel, ISettings
 {
     private readonly ILogger<IndexModel> _logger;
     private readonly BlogDbContext _blogDbContext;
 
     public IEnumerable<Post> Posts { get; set; } = Array.Empty<Post>();
+
+    public Settings Settings { get; set; } = new();
+
+    public bool DisplayPreviousLink { get; set; }
 
     public IndexModel(
         ILogger<IndexModel> logger,
@@ -21,9 +26,17 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-        Posts = _blogDbContext.Posts
-            .OrderByDescending(p => p.Created)
-            .Take(10)
+        var postQuery = _blogDbContext.Posts
+            .OrderByDescending(p => p.Published)
+            .Where(p => p.Status == PostStatus.Published);
+
+        Posts = postQuery
+            .Take(Settings.PageSize)
             .ToList();
+
+        Settings = _blogDbContext.Settings
+            .First();
+        
+        DisplayPreviousLink = postQuery.Count() > Settings.PageSize;
     }
 }

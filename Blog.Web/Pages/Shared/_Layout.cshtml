@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Blog.Web.Models.ISettings
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -7,6 +10,17 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/Blog.Web.styles.css" asp-append-version="true"/>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Settings.GoogleTrackingId))
+    {
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40287478-3"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-40287478-3');
+        </script>
+    }
 </head>
 <body>
 <header>
@@ -18,9 +32,13 @@
             </div>
             <div class="col-11">
                 <h1>
-                    <a class="text-black text-decoration-none" href="/">Grant Byrne</a>
+                    <a class="text-black text-decoration-none" href="/">
+                        @Model.Settings.BlogName
+                    </a>
                 </h1>
-                <h2 class="small">Coder, Cyclist, Runner, Swimmer, and Rock Climber</h2>
+                <h2 class="small">
+                    @Model.Settings.Tagline
+                </h2>
             </div>
         </div>
     </div>

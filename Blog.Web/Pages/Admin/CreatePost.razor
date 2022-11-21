@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
         <label for="publish-date-time">Publish Date Time</label>
-        <input type="datetime-local" class="form-control" id="publish-date-time" @bind="_post.Created"/>
+        <input type="datetime-local" class="form-control" id="publish-date-time" @bind="_post.Published"/>
     </div>
     <div class="form-group mt-3">
         <label for="post-body">Post Body</label>
@@ -27,33 +27,3 @@
         <button class="btn btn-primary float-end" type="submit">Save</button>
     </div>
 </EditForm>
-
-@code {
-
-    private readonly Post _post = new()
-    {
-        Created = DateTime.Now
-    };
-
-    [Inject]
-    public BlogDbContext DbContext { get; set; } = null!;
-
-    [Inject]
-    public NavigationManager NavigationManager { get; set; } = null!;
-
-    public void Save()
-    {
-        try
-        {
-            DbContext.Posts.Add(_post);
-            DbContext.SaveChanges();
-
-            NavigationManager.NavigateTo("/admin/posts");
-        }
-        catch (Exception ex)
-        {
-    // Ignore
-        }
-    }
-
-}

@@ -1,4 +1,5 @@
 ﻿using Blog.Web.Models;
+using Blog.Web.Models.Posts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,7 @@ public class BlogDbContext : IdentityDbContext
     private void SeedRoles(ModelBuilder builder)
     {
         builder.Entity<IdentityRole>().HasData(
-            new IdentityRole()
+            new IdentityRole
             {
                 Id = "fab4fac1-c546-41de-aebc-a14da6895711", 
                 Name = "Admin", 
@@ -53,7 +54,7 @@ public class BlogDbContext : IdentityDbContext
     private void SeedUserRoles(ModelBuilder builder)
     {
         builder.Entity<IdentityUserRole<string>>().HasData(
-            new IdentityUserRole<string>()
+            new IdentityUserRole<string>
             {
                 RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", 
                 UserId = "b74ddd14-6340-4840-95c2-db12554843e5"
@@ -62,4 +63,6 @@ public class BlogDbContext : IdentityDbContext
     }
 
     public DbSet<Post> Posts { get; set; } = null!;
+    
+    public DbSet<Settings> Settings { get; set; } = null!;
 }

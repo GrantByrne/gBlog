@@ -1,9 +1,5 @@
 @page "/admin/Posts"
-@inject BlogDbContext DbContext
-
 @using Blog.Web.Pages.Shared
-@using Blog.Web.Database
-@using Blog.Web.Models
 @layout AdminLayout
 
 <h3>Posts</h3>
@@ -12,96 +8,49 @@
     <div class="card-header">
         <a class="btn btn-primary float-end" href="/admin/createpost">Create Post</a>
     </div>
-    <div class="card-body px-0">
+    <div style="min-height: 500px;" class="card-body px-0">
         <table class="table table-striped table-hover m-0">
             <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Published</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>Title</th>
+                <th>Published</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var post in PostItems)
-                {
-                    <tr>
-                        <td>
-                            <a href="admin/EditPost/@post.Id">
-                                @post.Title[..Math.Min(100, post.Title.Length)]
-                            </a>
-                        </td>
-                        <td>@post.Created.ToShortDateString()</td>
-                        <td>
-                            <button class="btn btn-primary" @onclick="_ => Delete(post)">Delete</button>
-                        </td>
-                    </tr>
-                }
+            @foreach (var post in PostItems)
+            {
+                <tr>
+                    <td>
+                        <a href="admin/EditPost/@post.Id">
+                            @post.Title[..Math.Min(100, post.Title.Length)]
+                        </a>
+                    </td>
+                    <td>@post.Created.ToShortDateString()</td>
+                    <td>
+                        @post.Status
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="_ => Delete(post)">Delete</button>
+                    </td>
+                </tr>
+            }
             </tbody>
         </table>
     </div>
-    <div class="card-footer">
-        @if (DisplayNewer)
-        {
-            <button class="btn btn-primary" @onclick="Newer">Newer</button>
-        }
+    @if (DisplayNewer || DisplayOlder)
+    {
+        <div class="card-footer">
+            @if (DisplayNewer)
+            {
+                <button class="btn btn-primary" @onclick="Newer">Newer</button>
+            }
 
-        @if (DisplayOlder)
-        {
-            <button class="btn btn-primary float-end" @onclick="Older">Older</button>
-        }
-    </div>
+            @if (DisplayOlder)
+            {
+                <button class="btn btn-primary float-end" @onclick="Older">Older</button>
+            }
+        </div>   
+    }
 </div>
-
-@code {
-
-    private List<Post> PostItems { get; set; } = new();
-    private int Page { get; set; } = 1;
-    private int PageSize { get; set; } = 10;
-    private int TotalCount { get; set; } = 0;
-
-    protected override void OnInitialized()
-    {
-        Reload();
-    }
-
-    private void Newer()
-    {
-        Page--;
-        Reload();
-    }
-
-    private void Older()
-    {
-        Page++;
-        Reload();
-    }
-
-    private void Reload()
-    {
-        TotalCount = DbContext.Posts.Count();
-
-        PostItems = DbContext.Posts
-            .OrderByDescending(p => p.Created)
-            .Skip((Page - 1) * PageSize)
-            .Take(PageSize)
-            .ToList();
-    }
-
-    private bool DisplayNewer => Page > 1;
-    private bool DisplayOlder => Page < PageCount;
-    private int PageCount => (int)Math.Ceiling((double)TotalCount / PageSize);
-
-    private void Delete(Post post)
-    {
-        try
-        {
-            DbContext.Posts.Remove(post);
-            DbContext.SaveChanges();
-            Reload();
-        }
-        catch (Exception ex)
-        {
-            // Ignore
-        }
-    }
-}

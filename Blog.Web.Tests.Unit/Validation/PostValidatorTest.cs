@@ -1,4 +1,4 @@
-using Blog.Web.Models;
+using Blog.Web.Models.Posts;
 using Blog.Web.Validation;
 using NUnit.Framework;
 

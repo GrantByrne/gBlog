@@ -1,5 +1,5 @@
-﻿@page
-@model Blog.Web.Pages.IndexModel
+@page "/history/{number:int}"
+@model Blog.Web.Pages.History
 @{
     ViewData["Title"] = "Home page";
 }
@@ -18,11 +18,20 @@
         </div>
     </div>
 }
-@if (@Model.DisplayPreviousLink)
+
+@if(Model.ShowNewer || Model.ShowOlder)
 {
     <div class="row">
         <div class="d-inline">
-            <a href="/history/2" class="float-end">Older</a>
+            @if (Model.ShowNewer)
+            {
+                <a href="/History/@(Model.PageNumber-1)">Newer</a>
+            }
+            
+            @if(Model.ShowOlder)
+            {
+                <a href="/History/@(Model.PageNumber+1)" class="float-end">Older</a>
+            }
         </div>
-    </div>   
+    </div>
 }

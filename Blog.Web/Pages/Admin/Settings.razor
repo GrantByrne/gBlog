@@ -1,0 +1,21 @@
+@page "/admin/Settings"
+@using Blog.Web.Pages.Shared
+@layout AdminLayout
+
+<h3>Settings</h3>
+
+<EditForm Model="_model" OnValidSubmit="SaveChanges">
+    <div class="mb-3">
+        <label class="form-label">Blog Name</label>
+        <input class="form-control" type="text" @bind="_model.BlogName"/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Tagline</label>
+        <input class="form-control" type="text" @bind="_model.Tagline"/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Google Tracking Id</label>
+        <input class="form-control" type="text" @bind="_model.GoogleTrackingId"/>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+</EditForm>

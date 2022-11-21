@@ -1,5 +1,4 @@
 using Blog.Web.Database;
-using Blog.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +8,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlite("Data Source=blog.db"));
 
-builder.Services.AddIdentity<User, IdentityRole>()  
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<BlogDbContext>();
 
 builder.Services.AddServerSideBlazor();
@@ -27,9 +27,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
-
 app.UseAuthentication();
+app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();

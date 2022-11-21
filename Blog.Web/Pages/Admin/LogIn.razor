@@ -2,7 +2,6 @@
 @page "/admin"
 @using Blog.Web.Pages.Shared
 @layout AdminLayoutBase
-@inject NavigationManager NavigationManager
 
 <div class="row">
     <div class="col-3"></div>
@@ -18,11 +17,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password">
+                    <input type="password" class="form-control" id="password" @bind="Password">
                 </div>
             </div>
             <div class="card-footer">
-                <a href="/admin/dashboard" class="btn btn-primary float-end">
+                <a href="/admin/dashboard" @onclick="Authenticate" class="btn btn-primary float-end">
                     Log In
                 </a>
             </div>
@@ -30,19 +29,3 @@
     </div>
     <div class="col-3"></div>
 </div>
-
-@code {
-
-    private string Username { get; set; } = string.Empty;
-
-    protected override void OnInitialized()
-    {
-    // If the user is already logged in, redirect to the admin dashboard
-    }
-
-    public void Authenticate()
-    {
-        NavigationManager.NavigateTo("/admin/dashboard");
-    }
-
-}

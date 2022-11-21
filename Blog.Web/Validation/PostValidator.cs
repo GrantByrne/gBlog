@@ -1,4 +1,5 @@
 using Blog.Web.Models;
+using Blog.Web.Models.Posts;
 using FluentValidation;
 
 namespace Blog.Web.Validation;
