@@ -1,5 +1,6 @@
 ﻿@page "/blog"
 
+@using Markdig
 @model Blog.Web.Pages.BlogModel
 @{
     ViewData["Title"] = "Home page";
@@ -15,7 +16,7 @@
             </a>
         </h4>
         <div class="mt-3">
-            @post.Content
+            @Html.Raw(Markdown.ToHtml(post.Content))
         </div>
     </div>
 }
