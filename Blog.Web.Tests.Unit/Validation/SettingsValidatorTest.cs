@@ -1,5 +1,6 @@
 using Blog.Web.Models;
 using Blog.Web.Validation;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace Blog.Web.Tests.Unit.Validation;
@@ -21,7 +22,7 @@ public class SettingsValidatorTest
         var result = validator.Validate(settings);
         
         // Assert
-        Assert.IsTrue(result.IsValid);
+        result.IsValid.Should().BeTrue();
     }
     
     [Test]
@@ -36,6 +37,6 @@ public class SettingsValidatorTest
         var result = validator.Validate(settings);
         
         // Assert
-        Assert.IsFalse(result.IsValid);
+        result.IsValid.Should().BeFalse();
     }
 }

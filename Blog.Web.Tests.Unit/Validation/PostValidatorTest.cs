@@ -1,5 +1,6 @@
 using Blog.Web.Models.Posts;
 using Blog.Web.Validation;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace Blog.Web.Tests.Unit.Validation;
@@ -22,7 +23,7 @@ public class PostValidatorTest
         var result = validator.Validate(post);
 
         // Assert
-        Assert.IsTrue(result.IsValid);
+        result.IsValid.Should().BeTrue();
     }
     
     [TestCase("Title", "")]
@@ -42,6 +43,6 @@ public class PostValidatorTest
         var result = validator.Validate(post);
 
         // Assert
-        Assert.IsFalse(result.IsValid);
+        result.IsValid.Should().BeFalse();
     }
 }

@@ -7,21 +7,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Blazored.FluentValidation" Version="2.0.3" />
-      <PackageReference Include="FluentValidation" Version="10.4.0" />
-      <PackageReference Include="InterfaceGenerator" Version="1.0.6">
+      <PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
+      <PackageReference Include="FluentValidation" Version="11.10.0" />
+      <PackageReference Include="InterfaceGenerator" Version="1.0.14">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Markdig" Version="0.30.4" />
-      <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.0" />
+      <PackageReference Include="Markdig" Version="0.38.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.10" />
+      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
+      <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
       <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
     </ItemGroup>
 
 </Project>
