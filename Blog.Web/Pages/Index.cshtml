@@ -1,28 +1,91 @@
 ﻿@page
 @model Blog.Web.Pages.IndexModel
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
+    Layout = null;
 }
 
-@foreach (var post in Model.Posts)
-{
-    <div class="row mb-5">
-        <span class="text-muted small">@post.Published.ToShortDateString()</span>
-        <h4 class="display-5">
-            <a class="text-black text-decoration-none" href="/entry/@post.Id">
-                @post.Title
-            </a>
-        </h4>
-        <div>
-            @post.Content
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Blog.Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/Blog.Web.styles.css" asp-append-version="true"/>
+
+    <style>
+        /* Sticky Footer Styles */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+        .footer {
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Settings.GoogleTrackingId))
+    {
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40287478-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-40287478-3');
+    </script>
+    }
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Your Name</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Resume">Resume</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
+</header>
+
+<main role="main" class="container my-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Hi, I'm Grant!</h1>
+        <p class="lead">This is where I share my journey, ideas, and projects.</p>
+        <hr class="my-4">
+        <p>Check out my blog for the latest posts or learn more about me in the About section.</p>
     </div>
-}
-@if (@Model.DisplayPreviousLink)
-{
-    <div class="row">
-        <div class="d-inline">
-            <a href="/history/2" class="float-end">Older</a>
-        </div>
-    </div>   
-}
+</main>
+
+<footer class="footer bg-dark text-white text-center py-3">
+    <p>&copy; @DateTime.Now.Year Your Name. All rights reserved.</p>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+</html>
