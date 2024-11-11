@@ -11,83 +11,94 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/Blog.Web.styles.css" asp-append-version="true"/>
 
+    <style>
+        /* Sticky Footer Styles */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+        .footer {
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+
     @if (!string.IsNullOrWhiteSpace(Model.Settings.GoogleTrackingId))
     {
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40287478-3"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-40287478-3');
-        </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40287478-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-40287478-3');
+    </script>
     }
 </head>
 <body>
 <header>
-    <div class="container">
-        <div class="row mt-2">
-            <div class="col-1">
-                <div class="mt-2" style="height: 61px; width: 61px; background: gray">
-                </div>
-            </div>
-            <div class="col-11">
-                <h1>
-                    <a class="text-black text-decoration-none" href="/">
-                        @Model.Settings.BlogName
-                    </a>
-                </h1>
-                <h2 class="small">
-                    @Model.Settings.Tagline
-                </h2>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Grant Byrne</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Resume">Resume</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
+    </nav>
 </header>
-<div class="container">
-    <div class="row">
-        <div class="col-4 mt-4">
-            <h3>Resources</h3>
-            <ul class="p-0" style="list-style-type: none">
-                <li>
-                    <a class="text-decoration-none" href="/AboutMe">
-                        About Me
-                    </a>
-                </li>
-                <li>
-                    <a class="text-decoration-none" href="/Resume">Resume</a>
-                </li>
-                <li>
-                    <a class="text-decoration-none" href="https://github.com/GrantByrne">Github</a>
-                </li>
-                <li>
-                    <a class="text-decoration-none" href="https://www.twitter.com/Gr4ntByrne">Twitter</a>
-                </li>
-                <li>
-                    <a class="text-decoration-none" href="https://www.instagram.com/gr4ntbyrne">Instagram</a>
-                </li>
-                <li>
-                    <a class="text-decoration-none" href="https://www.youtube.com/@@Gr4ntByrne">Youtube</a>
-                </li>
-                <li>
-                    <a class="text-decoration-none" href="https://www.youtube.com/@@Gr4ntByrne">LinkedIn</a>
-                </li>
-            </ul>
-            <div class="text-muted small">
-                Copywrite Grant Byrne © @DateTime.Today.Year
-                <br/>
-                Developed in house with <a href="#">gBlog</a>
+
+<main role="main" class="container my-5">
+    @RenderBody()
+</main>
+
+<footer class="footer bg-dark text-white text-center">
+    <div class="container py-3">
+        <div class="row">
+            <div class="col text-start">
+                <h4>Blog</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/" class="text-white">Landing Page</a></li>
+                    <li><a href="/blog" class="text-white">Blog</a></li>
+                    <li><a href="/about" class="text-white">About</a></li>
+                    <li><a href="/resume" class="text-white">Resume</a></li>
+                </ul>
+            </div>
+            <div class="col text-end">
+                <h4>Socials</h4>
+                <ul class="list-unstyled">
+                    <li><a href="https://github.com/GrantByrne/" class="text-white">Github</a></li>
+                    <li><a href="https://x.com/Gr4ntByrne" class="text-white">X / Twitter</a></li>
+                    <li><a href="https://techhub.social/@@grantbyrne" class="text-white">Mastodon @@ Techhub.social</a></li>
+                </ul>
             </div>
         </div>
-        <div class="col-8 mt-4">
-            @RenderBody()
-        </div>
     </div>
-</div>
+    <div class="bg-secondary text-white text-center py-3 d-flex align-items-center justify-content-center">
+        <p class="mb-0">&copy; @DateTime.Now.Year Grant Byrne. All rights reserved.</p>
+    </div>
+</footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 
-@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
